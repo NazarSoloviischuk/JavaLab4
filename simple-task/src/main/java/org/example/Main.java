@@ -1,17 +1,37 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import org.example.animals.Giraffe;
+import org.example.animals.Lion;
+import org.example.animals.Zebra;
+import org.example.cages.AnimalNotFoundException;
+import org.example.cages.CageFullException;
+import org.example.cages.LionCage;
+import org.example.cages.UngulateCage;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        LionCage lions = new LionCage(2);
+        lions.add(new Lion("Simba"));
+        lions.add(new Lion("Nala"));
+        System.out.println("Леви: " + lions.getOccupied() + "/" + lions.getMaxCapacity());
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        // lions.add(new Zebra("Marty"));   // не скомпілюється: у вольєр для левів тільки леви
+
+        try {
+            lions.add(new Lion("Mufasa"));
+        } catch (CageFullException e) {
+            System.out.println("Помилка: " + e.getMessage());
+        }
+
+        UngulateCage ungulates = new UngulateCage(3);
+        ungulates.add(new Zebra("Marty"));
+        ungulates.add(new Giraffe("Melman"));
+        System.out.println("Копитні: " + ungulates.getAnimals());
+
+        try {
+            ungulates.remove(new Zebra("Gloria"));
+        } catch (AnimalNotFoundException e) {
+            System.out.println("Помилка: " + e.getMessage());
         }
     }
 }
