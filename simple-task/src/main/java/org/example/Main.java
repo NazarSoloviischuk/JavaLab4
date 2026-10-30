@@ -1,12 +1,15 @@
 package org.example;
 
+import org.example.animals.Eagle;
 import org.example.animals.Giraffe;
 import org.example.animals.Lion;
 import org.example.animals.Zebra;
 import org.example.cages.AnimalNotFoundException;
+import org.example.cages.BirdCage;
 import org.example.cages.CageFullException;
 import org.example.cages.LionCage;
 import org.example.cages.UngulateCage;
+import org.example.zoo.Zoo;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,5 +36,14 @@ public class Main {
         } catch (AnimalNotFoundException e) {
             System.out.println("Помилка: " + e.getMessage());
         }
+
+        BirdCage birds = new BirdCage(2);
+        birds.add(new Eagle("Sam"));
+
+        Zoo zoo = new Zoo();
+        zoo.addCage(lions);
+        zoo.addCage(ungulates);
+        zoo.addCage(birds);
+        System.out.println("Усього тварин у зоопарку: " + zoo.getCountOfAnimals());
     }
 }
